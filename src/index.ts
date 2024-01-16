@@ -21,10 +21,10 @@ type ExtraTypeFromEach<TQueries> = TQueries extends [
 		? [ExtraTypeFrom<THead>]
 		: []
 
-export function query<TType>(
+export let query = <TType>(
 	selector: string,
 	instance?: TypeClass<TType>,
-): Query<TType> {
+): Query<TType> => {
 	return {
 		selector,
 		instance,
@@ -32,7 +32,7 @@ export function query<TType>(
 	}
 }
 
-export function queryAll<TType = never>(selector: string): Query<Array<TType>> {
+export let queryAll = <TType = never>(selector: string): Query<Array<TType>> => {
 	return {
 		selector,
 		instance: undefined,
@@ -40,41 +40,10 @@ export function queryAll<TType = never>(selector: string): Query<Array<TType>> {
 	}
 }
 
-export function selectAnyIn<TQueries extends Array<Query<unknown>>>(
+export let selectIn = <TQueries extends Array<Query<unknown>>>(
 	parent: ParentNode,
 	...queries: TQueries
-): Result<ExtraTypeFromEach<TQueries>, Error> {
-	const elements: Array<unknown> = []
-
-	for (const query of queries) {
-		if (query.type === 'one') {
-			const element = parent.querySelector(query.selector)
-
-			if (!element) {
-				elements.push(element)
-				continue
-			}
-
-			if (query.instance && !(element instanceof (query.instance as any))) {
-				return Err(
-					new Error(`Invalid selected type with selector "${query.selector}"`),
-				)
-			}
-
-			elements.push(element)
-		}
-		else {
-			elements.push([...document.querySelectorAll(query.selector)])
-		}
-	}
-
-	return Ok(elements as ExtraTypeFromEach<TQueries>)
-}
-
-export function selectIn<TQueries extends Array<Query<unknown>>>(
-	parent: ParentNode,
-	...queries: TQueries
-): Result<ExtraTypeFromEach<TQueries>, Error> {
+): Result<ExtraTypeFromEach<TQueries>, Error> => {
 	const elements: Array<unknown> = []
 
 	for (const query of queries) {
@@ -103,16 +72,16 @@ export function selectIn<TQueries extends Array<Query<unknown>>>(
 	return Ok(elements as ExtraTypeFromEach<TQueries>)
 }
 
-export function select<TQueries extends Array<Query<unknown>>>(
+export let select = <TQueries extends Array<Query<unknown>>>(
 	...queries: TQueries
-): Result<ExtraTypeFromEach<TQueries>, Error> {
+): Result<ExtraTypeFromEach<TQueries>, Error> => {
 	return selectIn(document, ...queries)
 }
 
-export function removeClass(element: HTMLElement, className: string) {
+export let removeClass = (element: HTMLElement, className: string) => {
 	element.classList.remove(className)
 }
-export function addClass(element: HTMLElement, className: string) {
+export let addClass = (element: HTMLElement, className: string) => {
 	element.classList.add(className)
 }
 
@@ -124,10 +93,10 @@ type HTMLElementWithDisabled =
 	| HTMLTextAreaElement
 	| HTMLOptionElement
 
-export function enable(btn: HTMLElementWithDisabled) {
+export let enable = (btn: HTMLElementWithDisabled) => {
 	btn.disabled = false
 }
 
-export function disable(btn: HTMLElementWithDisabled) {
+export let disable = (btn: HTMLElementWithDisabled) => {
 	btn.disabled = true
 }
