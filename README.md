@@ -40,6 +40,6 @@ console.log(submitBtn)
 
 ## API
 
+
 # Inspiration and Credits
-- [ts-result](https://github.com/vultix/ts-results)
-- [Rust Result](https://www.rust-lang.org)
+ -
