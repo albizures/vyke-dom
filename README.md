@@ -84,6 +84,7 @@ Creates a query to be used inside of select or selectIn, and return only one ele
 ```ts
 import { query, select } from '@vyke/dom'
 import { unwrap } from '@vyke/results'
+
 unwrap(select(
 	query<HTMLDivElement>('#my-div'), // type given as generic
 	query('.list-item', HTMLLIElement), // type given as the class
@@ -99,7 +100,7 @@ import { query, select } from '@vyke/dom'
 import { unwrap } from '@vyke/results'
 const [listItems] = unwrap(select(
 //         ^? Array<HTMLLIElement>
-	queryAll('.list-item', HTMLLIElement), // type given as the class
+	queryAll<HTMLLIElement>('.list-item'),
 ))
 ```
 
