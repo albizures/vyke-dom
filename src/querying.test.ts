@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
+import { unwrap } from '@vyke/results'
 import { assertType, describe, expect, it } from 'vitest'
 import * as matchers from '@testing-library/jest-dom/matchers'
-import { unwrap } from '@vyke/results'
-import { query, queryAll, select } from './index'
+import { query, queryAll, select } from './querying'
 
 expect.extend(matchers as any)
 

@@ -3,7 +3,7 @@
 		@vyke/dom
 	</h1>
 </div>
-Functional and tiny (<1kb) functions to query dom in a safe and easy way TypeScript friendly.
+Functional and tiny (<1kb) functions to query and handle the dom in a safe and easy way and TypeScript friendly.
 
 ## Installation
 ```sh
@@ -39,7 +39,69 @@ console.log(submitBtn)
 ```
 
 ## API
+### selectIn
+select all the given queries within the given element
 
+```ts
+import { query, selectIn } from '@vyke/dom'
+import { unwrap } from '@vyke/results'
+
+const [myDiv, listItems] = unwrap(selectIn(
+	document.body, // <- the container
+	query<HTMLDivElement>('#my-div'), // type given as generic
+	queryAll<HTMLLIElement>('.list-item'), // type given as the class
+	// ^ this query will check `element instanceof HTMLLIElement
+))
+```
+> [!NOTE]
+> If any of the given queries return null the whole is considered a
+> failure, returning an Err
+
+### select
+Shortcut to selectIn using document as the container
+
+```ts
+import { query, select, selectIn } from '@vyke/dom'
+import { unwrap } from '@vyke/results'
+
+const [myDiv, listItems] = unwrap(selectIn(
+	document, // <- the container
+	query<HTMLDivElement>('#my-div'), // type given as generic
+	queryAll<HTMLLIElement>('.list-item'), // type given as the class
+	// ^ this query will check `element instanceof HTMLLIElement
+))
+// both way are equivalent
+const [myDiv, listItems] = unwrap(select(
+	query<HTMLDivElement>('#my-div'), // type given as generic
+	queryAll<HTMLLIElement>('.list-item'), // type given as the class
+	// ^ this query will check `element instanceof HTMLLIElement
+))
+```
+
+### query
+Creates a query to be used inside of select or selectIn, and return only one element
+
+```ts
+import { query, select } from '@vyke/dom'
+import { unwrap } from '@vyke/results'
+unwrap(select(
+	query<HTMLDivElement>('#my-div'), // type given as generic
+	query('.list-item', HTMLLIElement), // type given as the class
+	// ^ this query will check `element instanceof HTMLLIElement
+))
+```
+
+### queryAll
+Similar to `query` but return an array of elements
+
+```ts
+import { query, select } from '@vyke/dom'
+import { unwrap } from '@vyke/results'
+const [listItems] = unwrap(select(
+//         ^? Array<HTMLLIElement>
+	queryAll('.list-item', HTMLLIElement), // type given as the class
+))
+```
 
 # Inspiration and Credits
  -

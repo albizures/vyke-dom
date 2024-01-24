@@ -3,7 +3,7 @@
 	"type": "module",
 	"version": "0.0.2",
 	"packageManager": "pnpm@8.11.0",
-	"description": "",
+	"description": "Functional and tiny (<1kb) functions to query and handle the dom in a safe, easy and TypeScript friendly.",
 	"author": "Jose Albizures <jose@albizures.com> (https://albizures.com/)",
 	"license": "MIT",
 	"keywords": [
@@ -14,6 +14,18 @@
 		".": {
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.cjs"
+		},
+		"./querying": {
+			"import": "./dist/querying.mjs",
+			"require": "./dist/querying.cjs"
+		},
+		"./inputs": {
+			"import": "./dist/inputs.mjs",
+			"require": "./dist/inputs.cjs"
+		},
+		"./className": {
+			"import": "./dist/className.mjs",
+			"require": "./dist/className.cjs"
 		}
 	},
 	"main": "./dist/index.cjs",
@@ -40,19 +52,19 @@
 		"@vyke/results": "^0.1.*"
 	},
 	"devDependencies": {
-		"@antfu/eslint-config": "^2.6.2",
-		"@testing-library/jest-dom": "^6.2.0",
+		"@antfu/eslint-config": "^2.6.3",
+		"@testing-library/jest-dom": "^6.3.0",
 		"@vyke/results": "^0.1.0",
 		"@vyke/tsdocs": "^0.0.5",
 		"eslint": "^8.56.0",
-		"jsdom": "^23.2.0",
-		"knip": "^3.13.2",
+		"jsdom": "^24.0.0",
+		"knip": "^4.2.1",
 		"npm-run-all": "^4.1.5",
 		"standard-version": "^9.5.0",
-		"terser": "^5.26.0",
+		"terser": "^5.27.0",
 		"typescript": "^5.3.3",
 		"unbuild": "^2.0.0",
-		"vitest": "^1.2.0"
+		"vitest": "^1.2.1"
 	},
 	"standard-version": {
 		"skip": {
