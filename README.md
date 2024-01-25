@@ -104,5 +104,7 @@ const [listItems] = unwrap(select(
 ))
 ```
 
-# Inspiration and Credits
- -
+# Others vyke projects
+- [Flowmodoro app by vyke](https://github.com/albizures/vyke-flowmodoro)
+- [@vyke/tsdocs](https://github.com/albizures/vyke-tsdocs)
+- [@vyke/results](https://github.com/albizures/vyke-results)
