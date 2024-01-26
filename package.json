@@ -23,9 +23,13 @@
 			"import": "./dist/inputs.mjs",
 			"require": "./dist/inputs.cjs"
 		},
-		"./className": {
-			"import": "./dist/className.mjs",
-			"require": "./dist/className.cjs"
+		"./class-name": {
+			"import": "./dist/class-name.mjs",
+			"require": "./dist/class-name.cjs"
+		},
+		"./events": {
+			"import": "./dist/events.mjs",
+			"require": "./dist/events.cjs"
 		}
 	},
 	"main": "./dist/index.cjs",

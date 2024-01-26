@@ -12,10 +12,12 @@ export {
 export {
 	addClass,
 	removeClass,
-} from './className'
+} from './class-name'
 
 export {
 	type HTMLElementWithDisabled,
 	enable,
 	disable,
 } from './inputs'
+
+export { off, on } from './events'
