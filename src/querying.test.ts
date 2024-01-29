@@ -6,7 +6,7 @@ import { query, queryAll, select } from './querying'
 
 expect.extend(matchers as any)
 
-it('should select the elements maching given elements ', () => {
+it('should select the elements matching given elements ', () => {
 	document.body.innerHTML = `
 	<div id="my-div">my div</div>
 	<ul class="list">
