@@ -1,19 +1,34 @@
-type Target = Window | Element
+type Handler<TEvent> = (event: TEvent) => unknown
 
-type EventName<TElement extends Target> = TElement['addEventListener'] extends
-{
-	(type: infer TName, listener: (this: TElement, event: infer TEvent) => void): any
-	(type: string, listener: (this: TElement, event: unknown) => void): any
-} ? [TName, TEvent] : never
+type EventMap<TTarget> =
+	TTarget extends Window
+		? WindowEventMap
+		: TTarget extends Document
+			? DocumentEventMap
+			: TTarget extends SVGElement
+				? SVGElementEventMap
+				: TTarget extends HTMLElement
+					? HTMLElementEventMap
+					: never
 
-export function on<TElement extends Target>(element: TElement, eventName: EventName<TElement>[0], fn: (event: EventName<TElement>[1]) => void) {
-	element.addEventListener(eventName as string, fn)
+type Target = Window | Document | SVGElement | HTMLElement
+
+export function on<
+	TTarget extends Target,
+	TEventName extends keyof EventMap<TTarget>,
+	THandler extends Handler<EventMap<TTarget>[TEventName]>,
+>(target: TTarget, eventName: TEventName, handler: THandler) {
+	target.addEventListener(eventName as string, handler as unknown as Handler<Event>)
 
 	return () => {
-		off(element, eventName as string, fn)
+		off(target, eventName, handler)
 	}
 }
 
-export function off<TElement extends Target>(element: TElement, eventName: EventName<TElement>[0], fn: (event: EventName<TElement>[1]) => void) {
-	element.removeEventListener(eventName as string, fn)
+export function off<
+TTarget extends Target,
+TEventName extends keyof EventMap<TTarget>,
+THandler extends Handler<EventMap<TTarget>[TEventName]>,
+>(target: TTarget, eventName: TEventName, handler: THandler) {
+	target.removeEventListener(eventName as string, handler as unknown as Handler<Event>)
 }
