@@ -5,9 +5,11 @@ export type TypeClass<TType> = {
 	prototype: TType
 }
 
+export type QueryType = 'one' | 'all'
+
 export type Query<TType> = {
 	selector: string
-	type: 'one' | 'all'
+	type: QueryType
 	instance?: TypeClass<TType>
 }
 

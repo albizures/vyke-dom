@@ -1,5 +1,6 @@
 export {
 	type TypeClass,
+	type QueryType,
 	type Query,
 	type ExtraTypeFrom,
 	type ExtraTypeFromEach,
