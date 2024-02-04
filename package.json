@@ -1,7 +1,7 @@
 {
 	"name": "@vyke/dom",
 	"type": "module",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"packageManager": "pnpm@8.11.0",
 	"description": "Functional and tiny (<1kb) functions to query and handle the dom in a safe, easy and TypeScript friendly.",
 	"author": "Jose Albizures <jose@albizures.com> (https://albizures.com/)",
