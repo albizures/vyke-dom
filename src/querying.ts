@@ -8,7 +8,7 @@ export type TypeClass<TType> = {
 export type Query<TType> = {
 	selector: string
 	type: 'one' | 'all'
-	instance: TypeClass<TType> | undefined
+	instance?: TypeClass<TType>
 }
 
 export type ExtraTypeFrom<TQuery> = TQuery extends Query<infer TType> ? TType : never
@@ -36,8 +36,8 @@ export type ExtraTypeFromEach<TQueries> = TQueries extends [
  * ))
  * ```
  * > [!NOTE]
- * > If any of the given queries return null the whole is considered a
- * > failure, returning an Err
+ * > If any of the given queries return null the whole expression is considered
+ * > a as failure, returning an Err
  */
 export let selectIn = <TQueries extends Array<Query<unknown>>>(
 	parent: ParentNode,
@@ -84,7 +84,7 @@ export let selectIn = <TQueries extends Array<Query<unknown>>>(
  * 	queryAll<HTMLLIElement>('.list-item'), // type given as the class
  * 	// ^ this query will check `element instanceof HTMLLIElement
  * ))
- * // both way are equivalent
+ * // both ways are equivalent
  * const [myDiv, listItems] = unwrap(select(
  * 	query<HTMLDivElement>('#my-div'), // type given as generic
  * 	queryAll<HTMLLIElement>('.list-item'), // type given as the class

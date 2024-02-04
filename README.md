@@ -54,8 +54,8 @@ const [myDiv, listItems] = unwrap(selectIn(
 ))
 ```
 > [!NOTE]
-> If any of the given queries return null the whole is considered a
-> failure, returning an Err
+> If any of the given queries return null the whole expression is considered
+> a as failure, returning an Err
 
 ### select
 Shortcut to selectIn using document as the container
@@ -70,7 +70,7 @@ const [myDiv, listItems] = unwrap(selectIn(
 	queryAll<HTMLLIElement>('.list-item'), // type given as the class
 	// ^ this query will check `element instanceof HTMLLIElement
 ))
-// both way are equivalent
+// both ways are equivalent
 const [myDiv, listItems] = unwrap(select(
 	query<HTMLDivElement>('#my-div'), // type given as generic
 	queryAll<HTMLLIElement>('.list-item'), // type given as the class
