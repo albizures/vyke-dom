@@ -67,7 +67,7 @@ export let selectIn = <TQueries extends Array<Query<unknown>>>(
 			elements.push(element)
 		}
 		else {
-			elements.push([...document.querySelectorAll(selector)])
+			elements.push([...parent.querySelectorAll(selector)])
 		}
 	}
 
