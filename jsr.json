@@ -1,0 +1,10 @@
+{
+	"name": "@vyke/dom",
+	"version": "0.0.10",
+	"exports": {
+		".": "./src/index.ts",
+		"./calculations": "./src/calculations.ts",
+		"./array/filter": "./src/array/filter.ts",
+		"./array/sort": "./src/array/sort.ts"
+	}
+}
