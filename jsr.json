@@ -3,8 +3,9 @@
 	"version": "0.0.10",
 	"exports": {
 		".": "./src/index.ts",
-		"./calculations": "./src/calculations.ts",
-		"./array/filter": "./src/array/filter.ts",
-		"./array/sort": "./src/array/sort.ts"
+		"./querying": "./src/querying.ts",
+		"./inputs": "./src/inputs.ts",
+		"./class-name": "./src/class-name.ts",
+		"./events": "./src/events.ts"
 	}
 }
