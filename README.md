@@ -104,6 +104,33 @@ const [listItems] = unwrap(select(
 ))
 ```
 
+### removeClass
+Helper functions for managing classes from an element.
+
+### enable
+Enable an element
+
+### disable
+Disable an element
+
+### on
+Add an event listener to a target
+
+```ts
+const button = document.createElement('button')
+on(button, 'click', () => console.log('clicked'))
+```
+
+### off
+Remove an event listener from a target
+
+```ts
+const button = document.createElement('button')
+const handler = () => console.log('clicked')
+on(button, 'click', handler)
+off(button, 'click', handler)
+```
+
 ## Others vyke projects
 - [Flowmodoro app by vyke](https://github.com/albizures/vyke-flowmodoro)
 - [@vyke/results](https://github.com/albizures/vyke-results)
