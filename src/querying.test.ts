@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { IsErr, IsOk, unwrap } from '@vyke/results'
+import { isErr, isOk, unwrap } from '@vyke/results/result'
 import { assertType, describe, expect, it } from 'vitest'
 import * as matchers from '@testing-library/jest-dom/matchers'
 import { query, queryAll, select } from './querying'
@@ -51,8 +51,8 @@ describe('when any of the given queries fail', () => {
 			queryAll('.list-item'),
 		)
 
-		expect(IsOk(result)).toBe(false)
-		expect(IsErr(result) && result.value).toBeInstanceOf(Error)
+		expect(isOk(result)).toBe(false)
+		expect(isErr(result) && result.error).toBeInstanceOf(Error)
 	})
 })
 
@@ -79,9 +79,9 @@ describe('when a class constructor is given', () => {
 			query('.list', HTMLDivElement),
 		)
 
-		expect(IsOk(result)).toBe(false)
-		expect(IsErr(result) && result.value).toBeInstanceOf(Error)
-		expect(IsErr(result) && result.value).toMatchObject({
+		expect(isOk(result)).toBe(false)
+		expect(isErr(result) && result.error).toBeInstanceOf(Error)
+		expect(isErr(result) && result.error).toMatchObject({
 			message: 'Invalid selected type with selector ".list"',
 		})
 	})
