@@ -2,7 +2,7 @@
  * Functions to query elements from the DOM
  * @module querying
  */
-import { Err, Ok, type Result } from '@vyke/results'
+import { Err, Ok, type Result } from '@vyke/results/result'
 
 export type TypeClass<TType> = {
 	new (): TType
