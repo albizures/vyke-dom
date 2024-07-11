@@ -14,13 +14,13 @@ export type HTMLElementWithDisabled =
 /**
  * Enable an element
  */
-export let enable = (btn: HTMLElementWithDisabled) => {
+export let enable = (btn: HTMLElementWithDisabled): void => {
 	btn.disabled = false
 }
 
 /**
  * Disable an element
  */
-export let disable = (btn: HTMLElementWithDisabled) => {
+export let disable = (btn: HTMLElementWithDisabled): void => {
 	btn.disabled = true
 }
