@@ -1,6 +1,6 @@
 {
 	"name": "@vyke/dom",
-	"version": "0.0.12",
+	"version": "0.1.0",
 	"exports": {
 		".": "./src/index.ts",
 		"./querying": "./src/querying.ts",
