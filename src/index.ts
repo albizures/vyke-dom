@@ -22,3 +22,5 @@ export {
 } from './inputs'
 
 export { off, on } from './events'
+
+export { isElement, isInput } from './guards'
