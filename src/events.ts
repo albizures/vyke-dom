@@ -28,6 +28,9 @@ type EventMap<TTarget> = GetEventMap<TTarget, Options>
 
 type Target = Options[number][0]
 
+type AnyHandler = (event: Event) => void
+type Off = () => void
+
 /**
  * Add an event listener to a target
  * @example
@@ -40,8 +43,10 @@ type Target = Options[number][0]
 export function on<
 	TTarget extends Target,
 	TEventName extends keyof EventMap<TTarget>,
-	THandler extends Handler<EventMap<TTarget>[TEventName]>,
->(target: TTarget, eventName: TEventName, handler: THandler): () => void {
+	THandler extends Handler<EventMap<TTarget>[TEventName]>
+>(target: TTarget, eventName: TEventName, handler: THandler): Off
+export function on<TTarget extends Target>(target: TTarget, eventName: string, handler: AnyHandler): Off
+export function on(target: Target, eventName: string, handler: AnyHandler): Off {
 	target.addEventListener(eventName as string, handler as unknown as Handler<Event>)
 
 	return () => {
@@ -62,7 +67,9 @@ export function on<
 export function off<
 	TTarget extends Target,
 	TEventName extends keyof EventMap<TTarget>,
-	THandler extends Handler<EventMap<TTarget>[TEventName]>,
->(target: TTarget, eventName: TEventName, handler: THandler) {
+	THandler extends Handler<EventMap<TTarget>[TEventName]>
+>(target: TTarget, eventName: TEventName, handler: THandler): void
+export function off<TTarget extends Target>(target: TTarget, eventName: string, handler: AnyHandler): void
+export function off(target: Target, eventName: string, handler: AnyHandler): void {
 	target.removeEventListener(eventName as string, handler as unknown as Handler<Event>)
 }
