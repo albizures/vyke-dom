@@ -1,12 +1,13 @@
 {
 	"name": "@vyke/dom",
 	"version": "0.1.1",
-	"license": "MIT",
 	"exports": {
 		".": "./src/index.ts",
 		"./querying": "./src/querying.ts",
 		"./inputs": "./src/inputs.ts",
 		"./class-name": "./src/class-name.ts",
-		"./events": "./src/events.ts"
-	}
+		"./events": "./src/events.ts",
+		"./guards": "./src/guards.ts"
+	},
+	"license": "MIT"
 }

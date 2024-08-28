@@ -121,6 +121,22 @@ const button = document.createElement('button')
 on(button, 'click', () => console.log('clicked'))
 ```
 
+### on
+Add an event listener to a target
+
+```ts
+const button = document.createElement('button')
+on(button, 'click', () => console.log('clicked'))
+```
+
+### on
+Add an event listener to a target
+
+```ts
+const button = document.createElement('button')
+on(button, 'click', () => console.log('clicked'))
+```
+
 ### off
 Remove an event listener from a target
 
@@ -130,6 +146,32 @@ const handler = () => console.log('clicked')
 on(button, 'click', handler)
 off(button, 'click', handler)
 ```
+
+### off
+Remove an event listener from a target
+
+```ts
+const button = document.createElement('button')
+const handler = () => console.log('clicked')
+on(button, 'click', handler)
+off(button, 'click', handler)
+```
+
+### off
+Remove an event listener from a target
+
+```ts
+const button = document.createElement('button')
+const handler = () => console.log('clicked')
+on(button, 'click', handler)
+off(button, 'click', handler)
+```
+
+### isInput
+Check if the element is an input element
+
+### isElement
+Check if the element is a html element
 
 ## Others vyke projects
 - [Flowmodoro app by vyke](https://github.com/albizures/vyke-flowmodoro)
