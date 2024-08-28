@@ -43,7 +43,7 @@ type Off = () => void
 export function on<
 	TTarget extends Target,
 	TEventName extends keyof EventMap<TTarget>,
-	THandler extends Handler<EventMap<TTarget>[TEventName]>
+	THandler extends Handler<EventMap<TTarget>[TEventName]>,
 >(target: TTarget, eventName: TEventName, handler: THandler): Off
 export function on<TTarget extends Target>(target: TTarget, eventName: string, handler: AnyHandler): Off
 export function on(target: Target, eventName: string, handler: AnyHandler): Off {
@@ -67,7 +67,7 @@ export function on(target: Target, eventName: string, handler: AnyHandler): Off 
 export function off<
 	TTarget extends Target,
 	TEventName extends keyof EventMap<TTarget>,
-	THandler extends Handler<EventMap<TTarget>[TEventName]>
+	THandler extends Handler<EventMap<TTarget>[TEventName]>,
 >(target: TTarget, eventName: TEventName, handler: THandler): void
 export function off<TTarget extends Target>(target: TTarget, eventName: string, handler: AnyHandler): void
 export function off(target: Target, eventName: string, handler: AnyHandler): void {
