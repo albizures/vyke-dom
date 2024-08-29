@@ -26,14 +26,14 @@ export type ExtraTypeFromEach<TQueries> = TQueries extends [
 /**
  * Find an element within the parent
  */
-export let find = (parent: ParentNode, selector: string) => {
-	return parent.querySelector(selector)
+export let find = (parent: ParentNode, selector: string): Element | undefined => {
+	return parent.querySelector(selector) ?? undefined
 }
 
 /**
  * Find all elements within the parent
  */
-export let findAll = (parent: ParentNode, selector: string) => {
+export let findAll = (parent: ParentNode, selector: string): NodeListOf<Element> => {
 	return parent.querySelectorAll(selector)
 }
 

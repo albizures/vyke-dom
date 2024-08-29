@@ -1,5 +1,5 @@
 /**
- * Fuctions to enable and disable HTML elements
+ * Functions to enable and disable HTML elements
  * @module inputs
  */
 
