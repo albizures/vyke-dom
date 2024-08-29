@@ -1,5 +1,4 @@
 // @vitest-environment jsdom
-import { isErr, isOk, unwrap } from '@vyke/results/result'
 import { assertType, describe, expect, it } from 'vitest'
 import * as matchers from '@testing-library/jest-dom/matchers'
 import { query, queryAll, select } from './querying'
@@ -16,11 +15,11 @@ it('should select the elements matching given elements ', () => {
 	</ul>
 `
 
-	const [myDiv, oneItem, allItems] = unwrap(select(
+	const [myDiv, oneItem, allItems] = select(
 		query<HTMLDivElement>('#my-div'),
 		query<HTMLLIElement>('.list-item'),
 		queryAll<HTMLLIElement>('.list-item'),
-	))
+	)
 
 	assertType<HTMLDivElement>(myDiv)
 	expect(myDiv).toHaveTextContent('my div')
@@ -35,7 +34,7 @@ it('should select the elements matching given elements ', () => {
 })
 
 describe('when any of the given queries fail', () => {
-	it('should return an error', () => {
+	it('should return an undefined', () => {
 		document.body.innerHTML = `
 		<div id="my-div">my div</div>
 		<ul class="list">
@@ -45,14 +44,19 @@ describe('when any of the given queries fail', () => {
 		</ul>
 	`
 
-		const result = select(
+		const [myDiv, listTypo, listItem] = select(
 			query<HTMLDivElement>('#my-div'),
 			query<HTMLLIElement>('.list-typo'),
 			queryAll('.list-item'),
 		)
 
-		expect(isOk(result)).toBe(false)
-		expect(isErr(result) && result.error).toBeInstanceOf(Error)
+		expect(myDiv).toBeInstanceOf(HTMLDivElement)
+		expect(listTypo).toBe(undefined)
+		expect(listItem).toEqual([
+			expect.any(HTMLLIElement),
+			expect.any(HTMLLIElement),
+			expect.any(HTMLLIElement),
+		])
 	})
 })
 
@@ -67,22 +71,18 @@ describe('when a class constructor is given', () => {
 		</ul>
 	`
 
-		const [myDiv] = unwrap(select(
+		const [myDiv] = select(
 			query('#my-div', HTMLDivElement),
-		))
+		)
 
 		assertType<HTMLDivElement>(myDiv)
 		expect(myDiv).toHaveTextContent('my div')
 		expect(myDiv).toBeInstanceOf(HTMLDivElement)
 
-		const result = select(
+		const [list] = select(
 			query('.list', HTMLDivElement),
 		)
 
-		expect(isOk(result)).toBe(false)
-		expect(isErr(result) && result.error).toBeInstanceOf(Error)
-		expect(isErr(result) && result.error).toMatchObject({
-			message: 'Invalid selected type with selector ".list"',
-		})
+		expect(list).toBe(undefined)
 	})
 })

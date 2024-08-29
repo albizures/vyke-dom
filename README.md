@@ -7,18 +7,16 @@ Functional and tiny (<1kb) functions to query and handle the dom in a safe and e
 
 ## Installation
 ```sh
-# @vyke/results is a peer dependency
-npm i @vyke/dom @vyke/results
+npm i @vyke/dom
 ```
 
 ## Examples
 ```ts
-import { r } from '@vyke/results/r'
 import { query, select } from '@vyke/dom'
 
-const [app] = r.unwrap(select(
+const [app] = select(
 	query<HTMLDivElement>('#app'),
-))
+)
 
 console.log(app)
 //           ^? HTMLDivElement
@@ -26,13 +24,12 @@ console.log(app)
 
 Querying inside an specific element
 ```ts
-import { r } from '@vyke/results/r'
 import { query, selectIn } from '@vyke/dom'
 
-const [submitBtn] = r.unwrap(selectIn(
+const [submitBtn] = selectIn(
 	form,
 	query<HTMLButtonElement>('#submit'),
-))
+)
 
 console.log(submitBtn)
 //             ^? HTMLButtonElement
@@ -44,38 +41,35 @@ select all the given queries within the given element
 
 ```ts
 import { query, selectIn } from '@vyke/dom'
-import { unwrap } from '@vyke/results'
 
-const [myDiv, listItems] = unwrap(selectIn(
+const [myDiv, listItems] = selectIn(
 	document.body, // <- the container
 	query<HTMLDivElement>('#my-div'), // type given as generic
 	queryAll<HTMLLIElement>('.list-item'), // type given as the class
 	// ^ this query will check `element instanceof HTMLLIElement
-))
+)
 ```
 > [!NOTE]
-> If any of the given queries return null the whole expression is considered
-> a as failure, returning an Err
+> If any of the given queries return `null`, the result will be `undefined`
 
 ### select
 Shortcut to selectIn using document as the container
 
 ```ts
 import { query, select, selectIn } from '@vyke/dom'
-import { unwrap } from '@vyke/results'
 
-const [myDiv, listItems] = unwrap(selectIn(
+const [myDiv, listItems] = selectIn(
 	document, // <- the container
 	query<HTMLDivElement>('#my-div'), // type given as generic
 	queryAll<HTMLLIElement>('.list-item'), // type given as the class
 	// ^ this query will check `element instanceof HTMLLIElement
-))
+)
 // both ways are equivalent
-const [myDiv, listItems] = unwrap(select(
+const [myDiv, listItems] = select(
 	query<HTMLDivElement>('#my-div'), // type given as generic
 	queryAll<HTMLLIElement>('.list-item'), // type given as the class
 	// ^ this query will check `element instanceof HTMLLIElement
-))
+)
 ```
 
 ### query
@@ -83,13 +77,12 @@ Creates a query to be used inside of select or selectIn, and return only one ele
 
 ```ts
 import { query, select } from '@vyke/dom'
-import { unwrap } from '@vyke/results'
 
-unwrap(select(
+select(
 	query<HTMLDivElement>('#my-div'), // type given as generic
 	query('.list-item', HTMLLIElement), // type given as the class
 	// ^ this query will check `element instanceof HTMLLIElement
-))
+)
 ```
 
 ### queryAll
@@ -97,11 +90,10 @@ Similar to `query` but return an array of elements
 
 ```ts
 import { query, select } from '@vyke/dom'
-import { unwrap } from '@vyke/results'
-const [listItems] = unwrap(select(
+const [listItems] = select(
 //         ^? Array<HTMLLIElement>
 	queryAll<HTMLLIElement>('.list-item'),
-))
+)
 ```
 
 ### removeClass

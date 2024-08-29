@@ -57,14 +57,10 @@
 		"release:push-tags": "git push --follow-tags origin main",
 		"release": "run-s test build release:jsr-sync release:bump release:publish release:push-tags"
 	},
-	"peerDependencies": {
-		"@vyke/results": "^0.4.*"
-	},
 	"devDependencies": {
 		"@antfu/eslint-config": "^2.27.3",
 		"@testing-library/jest-dom": "^6.5.0",
 		"@vyke/jsr-sync": "^0.0.3",
-		"@vyke/results": "^0.4.*",
 		"@vyke/tsdocs": "^0.0.8",
 		"eslint": "^9.9.1",
 		"jsdom": "^25.0.0",

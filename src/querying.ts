@@ -2,7 +2,6 @@
  * Functions to query elements from the DOM
  * @module querying
  */
-import { Err, Ok, type Result } from '@vyke/results/result'
 
 export type TypeClass<TType> = {
 	new (): TType
@@ -32,75 +31,65 @@ export type ExtraTypeFromEach<TQueries> = TQueries extends [
  * @example
  * ```ts
  * import { query, selectIn } from '@vyke/dom'
- * import { unwrap } from '@vyke/results'
  *
- * const [myDiv, listItems] = unwrap(selectIn(
+ * const [myDiv, listItems] = selectIn(
  * 	document.body, // <- the container
  * 	query<HTMLDivElement>('#my-div'), // type given as generic
  * 	queryAll<HTMLLIElement>('.list-item'), // type given as the class
  * 	// ^ this query will check `element instanceof HTMLLIElement
- * ))
+ * )
  * ```
  * > [!NOTE]
- * > If any of the given queries return null the whole expression is considered
- * > a as failure, returning an Err
+ * > If any of the given queries return `null`, the result will be `undefined`
  */
 export let selectIn = <TQueries extends Array<Query<unknown>>>(
 	parent: ParentNode,
 	...queries: TQueries
-): Result<ExtraTypeFromEach<TQueries>, Error> => {
+): ExtraTypeFromEach<TQueries> => {
 	let elements: Array<unknown> = []
 
 	for (let query of queries) {
 		let { selector, type, instance } = query
 		if (type === 'one') {
-			let element = parent.querySelector(selector)
-
-			if (!element) {
-				return Err(
-					new Error(`Element not found with selector "${selector}"`),
-				)
-			}
+			let element = parent.querySelector(selector) ?? undefined
 
 			if (instance && !(element instanceof (instance as any))) {
-				return Err(
-					new Error(`Invalid selected type with selector "${selector}"`),
-				)
+				elements.push(undefined)
 			}
-
-			elements.push(element)
+			else {
+				elements.push(element)
+			}
 		}
 		else {
 			elements.push([...parent.querySelectorAll(selector)])
 		}
 	}
 
-	return Ok(elements as ExtraTypeFromEach<TQueries>)
+	return elements as ExtraTypeFromEach<TQueries>
 }
 /**
  * Shortcut to selectIn using document as the container
  * @example
  * ```ts
  * import { query, select, selectIn } from '@vyke/dom'
- * import { unwrap } from '@vyke/results'
  *
- * const [myDiv, listItems] = unwrap(selectIn(
+ * const [myDiv, listItems] = selectIn(
  * 	document, // <- the container
  * 	query<HTMLDivElement>('#my-div'), // type given as generic
  * 	queryAll<HTMLLIElement>('.list-item'), // type given as the class
  * 	// ^ this query will check `element instanceof HTMLLIElement
- * ))
+ * )
  * // both ways are equivalent
- * const [myDiv, listItems] = unwrap(select(
+ * const [myDiv, listItems] = select(
  * 	query<HTMLDivElement>('#my-div'), // type given as generic
  * 	queryAll<HTMLLIElement>('.list-item'), // type given as the class
  * 	// ^ this query will check `element instanceof HTMLLIElement
- * ))
+ * )
  * ```
  */
 export let select = <TQueries extends Array<Query<unknown>>>(
 	...queries: TQueries
-): Result<ExtraTypeFromEach<TQueries>, Error> => {
+): ExtraTypeFromEach<TQueries> => {
 	return selectIn(document, ...queries)
 }
 
@@ -109,13 +98,12 @@ export let select = <TQueries extends Array<Query<unknown>>>(
  * @example
  * ```ts
  * import { query, select } from '@vyke/dom'
- * import { unwrap } from '@vyke/results'
  *
- * unwrap(select(
+ * select(
  * 	query<HTMLDivElement>('#my-div'), // type given as generic
  * 	query('.list-item', HTMLLIElement), // type given as the class
  * 	// ^ this query will check `element instanceof HTMLLIElement
- * ))
+ * )
  * ```
  */
 export let query = <TType>(
@@ -134,14 +122,13 @@ export let query = <TType>(
  * @example
  * ```ts
  * import { query, select } from '@vyke/dom'
- * import { unwrap } from '@vyke/results'
- * const [listItems] = unwrap(select(
+ * const [listItems] = select(
  * //         ^? Array<HTMLLIElement>
  * 	queryAll<HTMLLIElement>('.list-item'),
- * ))
+ * )
  * ```
  */
-export let queryAll = <TType = never>(selector: string): Query<Array<TType>> => {
+export let queryAll = <TType = Element>(selector: string): Query<Array<TType>> => {
 	return {
 		selector,
 		instance: undefined,
