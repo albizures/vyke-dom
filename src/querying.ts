@@ -3,10 +3,7 @@
  * @module querying
  */
 
-export type TypeClass<TType> = {
-	new (): TType
-	prototype: TType
-}
+import type { TypeClass } from './utils'
 
 export type QueryType = 'one' | 'all'
 
@@ -25,6 +22,20 @@ export type ExtraTypeFromEach<TQueries> = TQueries extends [
 	: TQueries extends [infer THead]
 		? [ExtraTypeFrom<THead>]
 		: []
+
+/**
+ * Find an element within the parent
+ */
+export let find = (parent: ParentNode, selector: string) => {
+	return parent.querySelector(selector)
+}
+
+/**
+ * Find all elements within the parent
+ */
+export let findAll = (parent: ParentNode, selector: string) => {
+	return parent.querySelectorAll(selector)
+}
 
 /**
  * select all the given queries within the given element
@@ -51,7 +62,7 @@ export let selectIn = <TQueries extends Array<Query<unknown>>>(
 	for (let query of queries) {
 		let { selector, type, instance } = query
 		if (type === 'one') {
-			let element = parent.querySelector(selector) ?? undefined
+			let element = find(parent, selector) ?? undefined
 
 			if (instance && !(element instanceof (instance as any))) {
 				elements.push(undefined)
@@ -61,7 +72,7 @@ export let selectIn = <TQueries extends Array<Query<unknown>>>(
 			}
 		}
 		else {
-			elements.push([...parent.querySelectorAll(selector)])
+			elements.push([...findAll(parent, selector)])
 		}
 	}
 

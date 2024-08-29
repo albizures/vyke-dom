@@ -1,5 +1,4 @@
 export {
-	type TypeClass,
 	type QueryType,
 	type Query,
 	type ExtraTypeFrom,
@@ -8,6 +7,8 @@ export {
 	queryAll,
 	selectIn,
 	select,
+	find,
+	findAll,
 } from './querying'
 
 export {
@@ -23,4 +24,4 @@ export {
 
 export { off, on } from './events'
 
-export { isElement, isInput } from './guards'
+export { isElement, isInput, isSelect, isTextArea, isField } from './guards'
