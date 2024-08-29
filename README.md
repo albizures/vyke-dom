@@ -36,6 +36,12 @@ console.log(submitBtn)
 ```
 
 ## API
+### find
+Find an element within the parent
+
+### findAll
+Find all elements within the parent
+
 ### selectIn
 select all the given queries within the given element
 
