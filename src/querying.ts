@@ -13,14 +13,14 @@ export type Query<TType> = {
 	instance?: TypeClass<TType>
 }
 
-export type ExtraTypeFrom<TQuery> = TQuery extends Query<infer TType> ? TType : never
-export type ExtraTypeFromEach<TQueries> = TQueries extends [
+export type GetTypeFrom<TQuery> = TQuery extends Query<infer TType> ? TType : never
+export type GetTypeFromEach<TQueries> = TQueries extends [
 	infer THead,
 	...infer TTail,
 ]
-	? [ExtraTypeFrom<THead>, ...ExtraTypeFromEach<TTail>]
+	? [GetTypeFrom<THead>, ...GetTypeFromEach<TTail>]
 	: TQueries extends [infer THead]
-		? [ExtraTypeFrom<THead>]
+		? [GetTypeFrom<THead>]
 		: []
 
 /**
@@ -56,7 +56,7 @@ export let findAll = (parent: ParentNode, selector: string): NodeListOf<Element>
 export let selectIn = <TQueries extends Array<Query<unknown>>>(
 	parent: ParentNode,
 	...queries: TQueries
-): ExtraTypeFromEach<TQueries> => {
+): GetTypeFromEach<TQueries> => {
 	let elements: Array<unknown> = []
 
 	for (let query of queries) {
@@ -76,7 +76,7 @@ export let selectIn = <TQueries extends Array<Query<unknown>>>(
 		}
 	}
 
-	return elements as ExtraTypeFromEach<TQueries>
+	return elements as GetTypeFromEach<TQueries>
 }
 /**
  * Shortcut to selectIn using document as the container
@@ -100,7 +100,7 @@ export let selectIn = <TQueries extends Array<Query<unknown>>>(
  */
 export let select = <TQueries extends Array<Query<unknown>>>(
 	...queries: TQueries
-): ExtraTypeFromEach<TQueries> => {
+): GetTypeFromEach<TQueries> => {
 	return selectIn(document, ...queries)
 }
 
@@ -120,7 +120,7 @@ export let select = <TQueries extends Array<Query<unknown>>>(
 export let query = <TType>(
 	selector: string,
 	instance?: TypeClass<TType>,
-): Query<TType> => {
+): Query<TType | undefined> => {
 	return {
 		selector,
 		instance,

@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { assertType, describe, expect, it } from 'vitest'
+import { assert, assertType, describe, expect, it } from 'vitest'
 import * as matchers from '@testing-library/jest-dom/matchers'
 import { query, queryAll, select } from './querying'
 
@@ -21,10 +21,12 @@ it('should select the elements matching given elements ', () => {
 		queryAll<HTMLLIElement>('.list-item'),
 	)
 
+	assert(myDiv, 'myDiv should be defined')
 	assertType<HTMLDivElement>(myDiv)
 	expect(myDiv).toHaveTextContent('my div')
 	expect(myDiv).toBeInstanceOf(HTMLDivElement)
 
+	assert(oneItem, 'oneItem should be defined')
 	assertType<HTMLLIElement>(oneItem)
 	expect(oneItem).toBeInstanceOf(HTMLLIElement)
 
@@ -75,6 +77,7 @@ describe('when a class constructor is given', () => {
 			query('#my-div', HTMLDivElement),
 		)
 
+		assert(myDiv, 'myDiv should be defined')
 		assertType<HTMLDivElement>(myDiv)
 		expect(myDiv).toHaveTextContent('my div')
 		expect(myDiv).toBeInstanceOf(HTMLDivElement)

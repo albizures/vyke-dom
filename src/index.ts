@@ -1,8 +1,8 @@
 export {
 	type QueryType,
 	type Query,
-	type ExtraTypeFrom,
-	type ExtraTypeFromEach,
+	type GetTypeFrom,
+	type GetTypeFromEach,
 	query,
 	queryAll,
 	selectIn,
